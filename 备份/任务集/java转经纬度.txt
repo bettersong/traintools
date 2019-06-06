@@ -1,0 +1,12 @@
+insert into `pmanage` (`pManageName`,`pManageSex`,`pManageBranch`,`pManageStaffId`,`pManageContact`,`adminBumenId`) values ('test22','1','45','5','6','')
+一级系统 超级管理员
+
+二级： XXX电务段
+
+三级 ：福州东车间
+
+#sidebar > ul > li:hover > a {
+    background: #4a8bc2;
+}
+
+<?php if($i==1)echo 'display:block;'?>

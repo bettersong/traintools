@@ -1,0 +1,17 @@
+【公司服务器】
+远程桌面:119.23.61.231 
+用户名：administrator 
+密码： siyuan2019!
+
+//数据库连接配置
+define('DB_NAME', 'traintools');//数据库名
+define('DB_USER', 'traintools');//账号 traintools
+define('DB_PASSWORD', 'ttsecjtusoft');//密码
+define('DB_HOST', '119.23.61.231');//本地: localhost 公司服务器：119.23.61.231 周老师服务器：121.41.26.77
+
+铁科所服务器teamview信息，ID:1 218 408 095 密码：72asf2
+
+
+定位器短信
+ 
+$SMS,000000;W002, cmnet,,;W003,119.23.61.231,9003;W005,1;W009,1;!

@@ -1,0 +1,689 @@
+<?php
+/**
+ *常量与配置信息
+*/
+//数据库连接配置
+define('DB_NAME', 'traintools');//数据库名
+define('DB_USER', 'traintools');//账号 traintools
+define('DB_PASSWORD', 'ttsecjtusoft');//密码
+define('DB_HOST', '119.23.61.231');//本地: localhost 公司服务器：119.23.61.231 铁科所：，周老师服务器：121.41.26.77
+
+// define('DB_NAME', 'traintools');//数据库名
+// define('DB_USER', 'root');//账号 traintools
+// define('DB_PASSWORD', '654321');//密码
+// define('DB_HOST', '192.168.1.115');//localhost
+// define('DB_NAME', 'traintools');//数据库名
+// define('DB_USER', 'root');//账号 traintools
+// define('DB_PASSWORD', '654321');//密码
+// define('DB_HOST', '192.168.1.115');//localhost
+ 
+
+//离高铁安全门、仓库等，距离多少米范围内表示清点成功
+define("DistanceRange_safeDoor", 600);//单位米。设置601-可区分测试效果
+
+
+
+
+
+/********************************** 以下请勿改动 *********************************/
+//网站根URL
+define("APP_URL", 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER["SERVER_PORT"]);
+
+//当前页面所在的目录路径
+define("CURRENT_DIR", "/application/views".substr($_SERVER["REQUEST_URI"],0,strripos($_SERVER["REQUEST_URI"],"/")));
+
+//echo CURRENT_DIR; exit;
+
+$actionArr_cat1 = array(
+	"show" => "<font class='actTxt' style='color:#094'>查看</font>"
+);
+$actionArr = array(
+	"show" => "<font class='actTxt' style='color:#094'>查看</font>",
+	"add" =>  "<font class='actTxt' style='color:#317ef3'>添加</font>",
+	"edit" => "<font class='actTxt' style='color:#4B0082'>编辑</font>",
+	"del" =>  "<font class='actTxt' style='color:#f30'>删除</font>"
+);
+$actionArr_hidden = array(
+	"show" => "<font class='actTxt' style='display:none;color:#094'>查看</font>",
+	"add" =>  "<font class='actTxt' style='display:none;color:#317ef3'>添加</font>",
+	"edit" => "<font class='actTxt' style='display:none;color:#4B0082'>编辑</font>",
+	"del" =>  "<font class='actTxt' style='display:none;color:#f30'>删除</font>"
+); 
+
+//角色与权限对应关系，其中数组下标为角色ID
+$role_showItem=array(
+	"admin_leve1"=>array("personnelManage_admin","roleManage"),//一级系统管理员：系统管理员
+	"admin_leve2"=>array("personnelManage"),//二级系统管理员：xxx工务段，如福州工务段
+	"admin_leve3"=>array("personnelManage","warehouse_chejianAdmin","taskManage_pManage","safetyDoor_apply"),//三级系统管理员：xxx车间，如福州工务段-》福州东车间 福州东admin
+	"leader_commom"=>array("taskOrder_leader","safetyDoor_leader","suggestion_look"),//普通领导，如段领导
+	"diaoduyuan"=>array("taskOrder_lockingPlan","safetyDoor_monitor"),//站段调度员
+	"warehouse_admin"=>array("warehouse"),//仓库管理员
+	"taskorder_admin"=>array("taskManage_orderAdmin"),//作业计划管理员
+	"taskorder_charge"=>array("taskManage_orderAdmin"),//作业计划负责人，同作业计划管理员
+	"staff_common"=>array("taskOrder_leader","safetyDoor_leader"), //普通职员同普通领导，仅有查看权限
+);
+$role_showItem_m=array(
+	"admin_leve1"=>array("personnelManage_admin","roleManage"),//一级系统管理员：系统管理员
+	"admin_leve2"=>array("personnelManage"),//二级系统管理员：xxx工务段，如福州工务段
+	"admin_leve3"=>array("personnelManage","warehouse_chejianAdmin","taskManage_pManage","safetyDoor_apply"),//三级系统管理员：xxx车间，如福州工务段-》福州东车间 福州东admin
+	"leader_commom"=>array("taskOrder_leader","safetyDoor_leader","suggestion_look"),//普通领导，如段领导
+	"diaoduyuan"=>array("taskOrder_lockingPlan","safetyDoor_monitor"),//站段调度员
+	"warehouse_admin"=>array("warehouse"),//仓库管理员
+	"taskorder_admin"=>array("taskManage_orderAdmin"),//作业计划管理员
+	"taskorder_charge"=>array("taskManage_orderAdmin"),//作业计划负责人，同作业计划管理员
+	"staff_common"=>array("taskOrder_leader","safetyDoor_leader"), //普通职员同普通领导，仅有查看权限
+);
+//左侧导航
+$catlogForLeft = array(
+ 
+  "taskOrder_lockingPlan"=>array(
+	  "name"=>"作业开锁计划",//==历史工单
+	  "url"=>"/taskManage/TworkOrder/taskOrder_lockingPlan"
+  ),
+  "safetyDoor_monitor"=>array(
+	  "name"=>"高铁作业门监控",
+	  "url"=>"/safetyDoor/safeDoor_monitor/index"
+  ),
+  
+  
+  "taskOrder_leader"=>array(
+	  "name"=>"作业计划查询",//==历史工单
+	  "url"=>"/taskManage/HworkOrder/taskOrder_leader"
+  ),
+  "safetyDoor_leader"=>array(
+	  "name"=>"作业门开锁情况查询",
+	  "url"=>"/taskManage/HworkOrder/index_unlockingStatus"
+  ),
+  
+  "suggestion_look"=>array(
+	  "name"=>"查看建议",
+	  "url"=>"/suggestion/look/index"
+  ),
+   "personnelManage"=>array(
+	"name"=>"部门与人员管理",
+	"url"=>"/personnelManage/bManage/index",
+	"subnav"=>array(
+		 "bManage"=>array(
+		   "name"=>"部门信息管理",
+		   "url"=>"/personnelManage/bManage/index",
+		   "action"=>"index"
+	   ),
+		
+	   "pManage"=>array(
+		   "name"=>"人员信息管理",
+		   "url"=>"/personnelManage/pManage/index",
+		   "action"=>"index"
+	   )
+	)
+   ),
+   "personnelManage_admin"=>array(
+	"name"=>"部门与人员管理",
+	"url"=>"/personnelManage/bManage/index",
+	"subnav"=>array(
+		 "bManage"=>array(
+			"name"=>"部门信息管理",
+			"url"=>"/personnelManage/bManage/index",
+			"action"=>"index"
+	   ),
+	   "jManage"=>array(
+			"name"=>"部门角色分配",
+			"url"=>"/personnelManage/jManage/index",
+			"action"=>"index"
+	   ),
+	   "pManage"=>array(
+		   "name"=>"人员信息管理",
+		   "url"=>"/personnelManage/pManage/index",
+		   "action"=>"index"
+	   )
+	)
+   ),  
+   "roleManage"=>array(
+	"name"=>"角色/模块管理",
+	"url"=>"/roleManage/roleAdmin/index",
+	"subnav"=>array(
+		 
+		 "roleInfo"=>array(
+		   "name"=>"角色信息设置",
+		   "url"=>"/roleManage/roleInfo/index",
+		   "action"=>"index"
+		 ),
+		 /*
+		 "roleAdmin"=>array(
+			"name"=>"角色权限分配",
+			"url"=>"/roleManage/roleAdmin/index",
+			"action"=>"index"
+		  ) 
+		  */
+	)
+   ),
+   "warehouse_chejianAdmin"=>array(
+	  "name"=>"仓库管理",
+	  "url"=>"/warehouse/toolsList/index",
+	  "subnav"=>array(
+	     "waMessage"=>array(
+			 "name"=>"仓库基本信息管理",
+			 "url"=>"/warehouse/waMessage/index",
+			 "action"=>"index"
+		 ) 
+	  )
+   ),
+  "warehouse"=>array(
+	  "name"=>"仓库/工器具管理",
+	  "url"=>"/warehouse/toolsList/index",
+	  "subnav"=>array(
+	  //    "waMessage"=>array(
+			//  "name"=>"仓库基本信息管理",
+			//  "url"=>"/warehouse/waMessage/index",
+			//  "action"=>"index"
+		 // ),
+		 /*"RFIDClass"=>array(
+			 "name"=>"RFID类别设置",
+			 "url"=>"/warehouse/RFIDClass/index",
+			 "action"=>"index"
+		 ),*/
+	  	 "toolsList"=>array(
+			 "name"=>"工器具信息管理",
+			 "url"=>"/warehouse/toolsList/index",
+			 "action"=>"index"
+		 ),
+		 
+		 "RFIDLibs"=>array(
+			 "name"=>"RFID标签库管理",
+			 "url"=>"/warehouse/RFIDLibs/index",
+			 "action"=>"index"
+		 )
+		 ,
+		 "GPSLibs"=>array(
+			 "name"=>"GPS定位设备库管理",
+			 "url"=>"/warehouse/GPSLibs/index",
+			 "action"=>"index"
+		 )
+		 ,
+		 "toolBags"=>array(
+			 "name"=>"工具包信息管理",
+			 "url"=>"/warehouse/toolBags/index",
+			 "action"=>"index"
+		 )
+		 ,
+		 /*
+		 "toolsOutAdmin"=>array(
+			 "name"=>"工器具出库管理",
+			 "url"=>"/warehouse/RFIDClass/index",
+			 "action"=>"index"
+		 )
+		 ,
+		 "toolsInAdmin"=>array(
+			 "name"=>"工器具入库管理",
+			 "url"=>"/warehouse/RFIDClass/index",
+			 "action"=>"index"
+		 )
+		 */
+	  )
+   ),
+   "taskManage_pManage"=>array(
+	  "name"=>"施工上线人员管理",
+	 "url"=>"/personnelManage/pManage/builders",
+	 "subnav"=>array(
+		"uploadOrder"=>array(
+		  "name"=>"施工上线人员信息管理",
+		  "url"=>"/personnelManage/pManage/builders",
+		  "action"=>"index" 
+	  ),
+	),
+  ),
+   "taskManage_orderAdmin"=>array(
+	  "name"=>"工单管理",
+	 "url"=>"/taskManage/TworkOrder/index",
+	  "subnav"=>array(
+	  	 "uploadOrder"=>array(
+			 "name"=>"导入天窗作业计划",
+			 "url"=>"/taskManage/TworkOrder/uploadOrder",
+			 "action"=>"index" 
+		 ),
+		  "TworkOrder_set"=>array(
+			 "name"=>"作业计划整理",
+			 "url"=>"/taskManage/TworkOrder/setOrder",
+			 "action"=>"index" 
+		 ),
+		 "HworkOrder"=>array(
+			 "name"=>"作业计划查询",
+			 "url"=>"/taskManage/HworkOrder/taskOrder_orderAdmin",
+			 "action"=>"index"
+		 )
+	  )
+  ),
+  "taskManage"=>array(
+	  "name"=>"工单管理",
+	 "url"=>"/taskManage/TworkOrder/index",
+	  "subnav"=>array(
+	  	 "TworkOrder"=>array(
+			 "name"=>"今日工单",
+			 "url"=>"/taskManage/TworkOrder/index",
+			 "action"=>"index" 
+		 ),
+		 "HworkOrder"=>array(
+			 "name"=>"历史工单",
+			 "url"=>"/taskManage/HworkOrder/index",
+			 "action"=>"index"
+		 )
+	  )
+  ),
+  "deviceManage"=>array(
+	  "name"=>"其他设备管理",
+	  "url"=>"/deviceManage/devicList/index",
+	  "subnav"=>array(
+	  	 "devicList"=>array(
+			 "name"=>"设备列表",
+			 "url"=>"/deviceManage/devicList/index",
+			 "action"=>"index"
+		 ),
+		 "devicClass"=>array(
+			 "name"=>"设备类别",
+			 "url"=>"/deviceManage/devicClass/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "toolsManage"=>array(
+	  "name"=>"工具清点管理",
+	  "url"=>"/toolsManage/clearRecord/index",
+	  "subnav"=>array(
+	  	 "clearRecord"=>array(
+			 "name"=>"出入库清点记录",
+			 "url"=>"/toolsManage/clearRecord/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  /*"personnelManage"=>array(
+	  "name"=>"人员管理",
+	  "url"=>"/personnelManage/bManage/index",
+	  "subnav"=>array(
+	  	 "bManage"=>array(
+			 "name"=>"部门信息管理",
+			 "url"=>"/personnelManage/bManage/index",
+			 "action"=>"index"
+		 ),
+		 "zManage"=>array(
+			 "name"=>"职位信息管理",
+			 "url"=>"/personnelManage/zManage/index",
+			 "action"=>"index"
+		 ),
+		 "pManage"=>array(
+			 "name"=>"人员信息管理",
+			 "url"=>"/personnelManage/pManage/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),*/
+  
+  "signManage"=>array(
+	  "name"=>"考勤管理",
+	  "url"=>"/signManage/todaySign/index",
+	  "subnav"=>array(
+	  	 "todaySign"=>array(
+			 "name"=>"今日签到",
+			 "url"=>"/signManage/todaySign/index",
+			 "action"=>"index"
+		 ),
+		 "hSign"=>array(
+			 "name"=>"历史签到",
+			 "url"=>"/signManage/hSign/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "personLocal"=>array(
+	  "name"=>"人员定位管理",
+	  "url"=>"/personLocal/RealTimeLocal/index",
+	  "subnav"=>array(
+	  	 "RealTimeLocal"=>array(
+			 "name"=>"人员定位",
+			 "url"=>"/personLocal/RealTimeLocal/index",
+			 "action"=>"index"
+		 ),
+		 "TrackReplay"=>array(
+			 "name"=>"轨迹回放",
+			 "url"=>"/personLocal/TrackReplay/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  /*"safetyDoor"=>array(
+	  "name"=>"作业门管理",
+	  "url"=>"/safetyDoor/ceControl/index",
+	  "subnav"=>array(
+	  	 "ceControl"=>array(
+			 "name"=>"监控设备控制",
+			 "url"=>"/safetyDoor/ceControl/index",
+			 "action"=>"index"
+		 ),
+		 "ceManage"=>array(
+			 "name"=>"监控信息管理",
+			 "url"=>"/safetyDoor/ceManage/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),*/
+   "safetyDoor_apply"=>array(//使用/申请者的作业门管理
+	  "name"=>"高铁作业门管理",//作业门管理-车间
+	  "url"=>"/safetyDoor/ceControl/index",
+	  "subnav"=>array(
+	  	 "ceControl"=>array(
+			 "name"=>"作业门基本信息管理",
+			 "url"=>"/safetyDoor/ceControl/baseInfo",
+			 "action"=>"index"
+		 ),
+		 "ceControlLock"=>array(
+			 "name"=>"安全锁基本信息管理",
+			 "url"=>"/safetyDoor/ceControlLock/index",
+			 "action"=>"index"
+		 ) 
+	  )
+   ),
+   
+   "safetyDoor_zddd"=>array(//站段调度的作业门管理
+	  "name"=>"作业门管理-站段调度",
+	  "url"=>"/safetyDoor/ceControl/index",
+	  "subnav"=>array(
+	  	 "ceControl"=>array(
+			 "name"=>"监控设备控制",
+			 "url"=>"/safetyDoor/ceControl/index",
+			 "action"=>"index"
+		 ),
+		 "ceManage"=>array(
+			 "name"=>"监控信息管理",
+			 "url"=>"/safetyDoor/ceManage/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "reportForm"=>array(
+	  "name"=>"报表统计",
+	  "url"=>"/reportForm/reportForms/index",
+	  "subnav"=>array(
+	  	 "reportForms"=>array(
+			 "name"=>"工单",
+			 "url"=>"/reportForm/reportForms/index",
+			 "action"=>"index"
+		 ),
+		 "peopleForms"=>array(
+			 "name"=>"人员清单",
+			 "url"=>"/reportForm/peopleForms/index",
+			 "action"=>"index"
+		 ),
+		 "equipmentForms"=>array(
+			 "name"=>"工器具清单",
+			 "url"=>"/reportForm/equipmentForms/index",
+			 "action"=>"index"
+		 ),
+		"equipmentDetails"=>array(
+			 "name"=>"工器具明细",
+			 "url"=>"/reportForm/equipmentDetails/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "dealInfo"=>array(
+	  "name"=>"信息发布与管理",
+	  "url"=>"/dealInfo/pushInfo",
+	  "subnav"=>array(
+	  	 "pushInfo"=>array(
+			 "name"=>"信息发布",
+			 "url"=>"/dealInfo/pushInfo",
+			 "action"=>"pushInfo"
+		 ),
+		 "adminInfo"=>array(
+			 "name"=>"信息管理",
+			 "url"=>"/dealInfo/adminInfo",
+			 "action"=>"pushInfo"
+		 )
+	  )
+   )/*,
+  "authManage"=>array(
+	  "name"=>"权限管理",
+	  "url"=>"/authManage/auth/index",
+	  "subnav"=>array(
+	  	 "auth"=>array(
+			 "name"=>"权限分配列表",
+			 "url"=>"/authManage/auth/index",
+			 "action"=>"index"
+		 ),
+		 "role"=>array(
+			 "name"=>"设置角色权限",
+			 "url"=>"/authManage/role/index",
+			 "action"=>"index"
+		 ) 
+	  )
+   )*/
+
+); 
+  
+ 
+
+$catlogArrForAuth = array(
+   "taskManage"=>array(
+	  "name"=>"工单管理",
+	 "url"=>"/taskManage/TworkOrder/index",
+	  "subnav"=>array(
+	  	 "TworkOrder"=>array(
+			 "name"=>"今日工单",
+			 "url"=>"/taskManage/TworkOrder/index",
+			 "action"=>"index" 
+		 ),
+		 "HworkOrder"=>array(
+			 "name"=>"历史工单",
+			 "url"=>"/taskManage/HworkOrder/index",
+			 "action"=>"index"
+		 )
+	  )
+  ),
+  "warehouse"=>array(
+	  "name"=>"仓库/工具管理",
+	  "url"=>"/warehouse/toolsList/index",
+	  "subnav"=>array(
+	  	 "toolsList"=>array(
+			 "name"=>"工具列表",
+			 "url"=>"/warehouse/toolsList/index",
+			 "action"=>"index"
+		 ),
+		 "waMessage"=>array(
+			 "name"=>"仓库基本信息设置",
+			 "url"=>"/warehouse/waMessage/index",
+			 "action"=>"index"
+		 ),
+		 "RFIDLibs"=>array(
+			 "name"=>"RFID标签库管理",
+			 "url"=>"/warehouse/RFIDLibs/index",
+			 "action"=>"index"
+		 ),
+		 "RFIDClass"=>array(
+			 "name"=>"RFID类别设置",
+			 "url"=>"/warehouse/RFIDClass/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "deviceManage"=>array(
+	  "name"=>"其他设备管理",
+	  "url"=>"/deviceManage/devicList/index",
+	  "subnav"=>array(
+	  	 "devicList"=>array(
+			 "name"=>"设备列表",
+			 "url"=>"/deviceManage/devicList/index",
+			 "action"=>"index"
+		 ),
+		 "devicClass"=>array(
+			 "name"=>"设备类别",
+			 "url"=>"/deviceManage/devicClass/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "toolsManage"=>array(
+	  "name"=>"工具清点管理",
+	  "url"=>"/toolsManage/clearRecord/index",
+	  "subnav"=>array(
+	  	 "clearRecord"=>array(
+			 "name"=>"出入库清点记录",
+			 "url"=>"/toolsManage/clearRecord/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "personnelManage"=>array(
+	  "name"=>"人员管理",
+	  "url"=>"/personnelManage/bManage/index",
+	  "subnav"=>array(
+	  	 "bManage"=>array(
+			 "name"=>"部门信息管理",
+			 "url"=>"/personnelManage/bManage/index",
+			 "action"=>"index"
+		 ),
+		 "zManage"=>array(
+			 "name"=>"职位信息管理",
+			 "url"=>"/personnelManage/zManage/index",
+			 "action"=>"index"
+		 ),
+		 "pManage"=>array(
+			 "name"=>"人员信息管理",
+			 "url"=>"/personnelManage/pManage/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "signManage"=>array(
+	  "name"=>"考勤管理",
+	  "url"=>"/signManage/todaySign/index",
+	  "subnav"=>array(
+	  	 "todaySign"=>array(
+			 "name"=>"今日签到",
+			 "url"=>"/signManage/todaySign/index",
+			 "action"=>"index"
+		 ),
+		 "hSign"=>array(
+			 "name"=>"历史签到",
+			 "url"=>"/signManage/hSign/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "personLocal"=>array(
+	  "name"=>"人员定位管理",
+	  "url"=>"/personLocal/RealTimeLocal/index",
+	  "subnav"=>array(
+	  	 "RealTimeLocal"=>array(
+			 "name"=>"人员定位",
+			 "url"=>"/personLocal/RealTimeLocal/index",
+			 "action"=>"index"
+		 ),
+		 "RealTimeLocal"=>array(
+			 "name"=>"人员定位-第三方演示版",
+			 "url"=>"/personLocal/RealTimeLocal/index_orther",
+			 "action"=>"index"
+		 ),
+		 "TrackReplay"=>array(
+			 "name"=>"轨迹回放",
+			 "url"=>"/personLocal/TrackReplay/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "safetyDoor"=>array(
+	  "name"=>"作业门管理",
+	  "url"=>"/safetyDoor/ceControl/index",
+	  "subnav"=>array(
+	  	 "ceControl"=>array(
+			 "name"=>"监控设备控制",
+			 "url"=>"/safetyDoor/ceControl/index",
+			 "action"=>"index"
+		 ),
+		 "ceManage"=>array(
+			 "name"=>"监控信息管理",
+			 "url"=>"/safetyDoor/ceManage/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "reportForm"=>array(
+	  "name"=>"报表统计",
+	  "url"=>"/reportForm/reportForms/index",
+	  "subnav"=>array(
+	  	 "reportForms"=>array(
+			 "name"=>"工单",
+			 "url"=>"/reportForm/reportForms/index",
+			 "action"=>"index"
+		 ),
+		 "peopleForms"=>array(
+			 "name"=>"人员清单",
+			 "url"=>"/reportForm/peopleForms/index",
+			 "action"=>"index"
+		 ),
+		 "equipmentForms"=>array(
+			 "name"=>"工器具清单",
+			 "url"=>"/reportForm/equipmentForms/index",
+			 "action"=>"index"
+		 ),
+		"equipmentDetails"=>array(
+			 "name"=>"工器具明细",
+			 "url"=>"/reportForm/equipmentDetails/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+  "dealInfo"=>array(
+	  "name"=>"信息发布与管理",
+	  "url"=>"/dealInfo/pushInfo",
+	  "subnav"=>array(
+	  	 "pushInfo"=>array(
+			 "name"=>"信息发布",
+			 "url"=>"/dealInfo/pushInfo",
+			 "action"=>"pushInfo"
+		 ),
+		 "adminInfo"=>array(
+			 "name"=>"信息管理",
+			 "url"=>"/dealInfo/adminInfo",
+			 "action"=>"pushInfo"
+		 )
+	  )
+   ),
+  "authManage"=>array(
+	  "name"=>"权限管理",
+	  "url"=>"/authManage/auth/index",
+	  "subnav"=>array(
+	  	 "auth"=>array(
+			 "name"=>"权限列表信息",
+			 "url"=>"/authManage/auth/index",
+			 "action"=>"index"
+		 ),
+		 "role"=>array(
+			 "name"=>"角色基础信息",
+			 "url"=>"/authManage/role/index",
+			 "action"=>"index"
+		 ),
+		 "authAssignment"=>array(
+			 "name"=>"分配角色权限",
+			 "url"=>"/authManage/authAssignment/index",
+			 "action"=>"index"
+		 )
+	  )
+   ),
+   
+   "my"=>array(
+	  "name"=>"用户中心及其他",
+	  "url"=>"/my/mine/index",
+	  "subnav"=>array(
+	  	 "safety"=>array(
+			 "name"=>"安全揭示",
+			 "url"=>"/my/safety/index",
+			 "action"=>"index"
+		 ),
+		 "mine"=>array(
+			 "name"=>"意见反馈",
+			 "url"=>"/my/sugestion/index",
+			 "action"=>"index"
+		 ) 
+	  )
+   )
+
+);

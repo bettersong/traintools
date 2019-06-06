@@ -1,0 +1,1 @@
+<?php include "index_m.php"; ?>

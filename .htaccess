@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+    #功能：将所有的数据请求都重定向 index.php 文件
+    #需要开启 httpd.conf 的 rewrite
+    
+    RewriteEngine On
+
+    # 确保请求路径不是一个文件名或目录
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # 重定向所有请求到 index.php?url=PATHNAME
+
+    RewriteRule ^(.*)$ index.php?url=$1 [PT,L]
+
+</IfModule>

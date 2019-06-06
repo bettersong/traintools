@@ -1,0 +1,91 @@
+@charset "utf-8";
+body,html{ height: 100%;}
+body{ padding:0px; margin:0px; font-size:12px; color:#333; font-family:'微软雅黑';  background: #f7f7f7;}
+*{ padding:0; margin:0;}
+ul,li,dl,dd{ list-style-type:none; margin:0; padding:0;}
+img { border-style: none; margin:0; padding:0;}
+p{ margin:0; padding:0;}
+a{text-decoration:none;color:#333;}
+a:hover{ text-decoration:none; color:#0087c7;}
+input,button,select,textarea{outline:none; font-family:'微软雅黑';}
+.show{display: block;}
+.hide{display: none;}
+
+.frame-wrapper{ width: 100%; height: 100%; position: relative;}
+.frame-left{ position: absolute; left: 0; top: 0; bottom: 0; width: 200px; height: 100%; background: #444c63;}
+.frame-right{position: absolute; left: 200px; right: 0; top: 0; bottom: 0; background: #f5f5f5;}
+
+.f-logo{ width: 100%; height: 60px; line-height: 60px; text-align: center; color: #fff; background: #18aef5; font-size: 20px; font-weight: bold; letter-spacing: 1px;}
+.f-nav{ width: 100%; font-size: 12px;}
+.f-navList{ padding-left:20px ; height: auto;}
+.f-navOne{ width: 100%; height: 40px; overflow: hidden; cursor: pointer; position: relative;}
+.f-navOne-img{ float: left; padding-top:8px ;}
+.f-navOne-img img{ height: 24px; width: auto;}
+.f-navOne-title{ display: block; float: left; height: 40px; line-height: 40px; color: #c2c2c2; margin-left: 10px;}
+.f-navOne-down{ position: absolute; right: 10px; top: 17px;}
+.f-navOne-down img{ height: 10px; width: auto;}
+.f-navOne-up{ position: absolute; right: 10px; top: 17px;}
+.f-navOne-up img{ height: 10px; width: auto;}
+.f-navOne .f-navOne-title:hover{color: #fff; }
+
+.f-navTwoWrapper{ padding-left: 33px;}
+.f-navTwo{width: 100%; height: 40px; overflow: hidden; cursor: pointer; position: relative;}
+.f-navTwo-img{float: left; padding-top: 9px;}
+.f-navTwo-img img{ height: 22px; width: auto;}
+.f-navTwo-title{ display: block; float: left; height: 40px; line-height: 40px; color: #c2c2c2; margin-left: 10px; color: #fff;}
+.f-navTwo-down{ position: absolute; right: 10px; top: 15px;}
+.f-navTwo-down img{ height: 10px; width: auto;}
+.f-navTwo-up{ position: absolute; right: 10px; top: 15px;}
+.f-navTwo-up img{ height: 10px; width: auto;}
+
+.f-navThree{ padding-left:32px ;}
+.f-navThree dd p{ display: block; width: 100%; height: 30px; line-height: 30px; color: #fff; cursor: pointer;}
+.f-navThree dd p:hover{ color: #21a7e6;}
+
+.f-navHover .f-navTwo-title{ color: #fff;}
+
+.f-header{ width: 100%; height: 60px; overflow: hidden; border-bottom: 1px solid #f0f0f0; background: #fff;}
+.f-menuBtn{ float: left; width: 60px; height: 40px; text-align: center; padding-top: 20px; cursor: pointer;}
+.f-menuBtn img{ width: 20px; height: auto;}
+.f-headerNav{ float: right; height: 60px; width: auto;}
+.f-headerNav li{ float: left; border-left: 1px solid #f0f0f0;}
+.f-headerNav li a{ display: block; padding: 0 20px; text-align: center; line-height: 60px; color: #999999; cursor: pointer;}
+.f-headerNav li a:hover{color: #7e7d7d;}
+.f-topMenu{width: 100%; min-height: 40px; border-bottom: 1px solid #f0f0f0; background: #fff; position: relative;}
+.f-topMenu-ul{ overflow: hidden; padding-right: 120px;}
+.f-topMenu-ul li{ float: left; min-width: 65px; height: 40px; line-height: 40px; padding:0 10px ; cursor: pointer; position: relative;}
+.f-topMenu-ul p{ display: block; float: left; line-height: 40px;}
+.f-topMenu-moreOut{ position: absolute; right: 10px; top: 8px; border: 1px solid #D0D0D0; border-radius:5px ; padding-left:8px; padding-right: 20px; height: 24px; overflow: hidden; background: #fff; cursor: pointer; line-height: 24px; text-align: center; background: url(/public/images/icon-cha.png) 60px center no-repeat; color: #9F9F9F; font-size: 12px;}
+.f-topMenu-moreOut:hover{background: url(/public/images/icon-chaHover.png) 60px center no-repeat #fd4d2b; border: 1px solid #fd4d2b; color: #fff;}
+.f-topMenu-index{ width: 65px; text-align: center!important;}
+.f-topMenu-hover{height: 38px!important; border-bottom: 2px solid #00b5f9; color: #00b5f9!important; line-height: 40px;}
+.f-topMenu-outWrapper{ float: right; width: 25px; height: 30px; position: relative;}
+.f-topMenu-out{ position: absolute; top: 10px; right: 0; text-align: center; padding: 5px; background: none; border-radius:3px ; z-index: 999;}
+.f-topMenu-out img{ width: 10px; height: auto;}
+.f-topMenu-outHover{background: #fd4d2b;}
+
+.f-body{ position: absolute; left: 5px; right: 0px; top: 107px; bottom: 5px; background: #f5f5f5; overflow: auto; z-index: 1000}
+.f-item{ width: 100%; height: 100%;}
+.f-frame{ width: 100%; height: 100%; border: 0; outline: 0;}
+/*树*/
+.f-treeListWrapper{ width: auto; height: auto;position: relative;} 
+.f-treeList{ min-width: 100px; min-height: 30px; position: relative; padding-left: 35px;}
+.f-treeList-line{ position: absolute; width: 1px; top: 20px; bottom: 0px; left: 22px; background:url(/public/images/tree-line.png); background-repeat:repeat-y;}
+.f-treeList-lineShu{ position: absolute; width: 1px; top: 0px; bottom: 0px; left: 21px; background:url(/public/images/tree-line.png); background-repeat:repeat-y;}
+.f-treeList-lineShuEnd{ position: absolute; width: 1px; top: 0px; bottom: 10px; left: 21px; background:url(/public/images/tree-line.png); background-repeat:repeat-y;}
+.f-treeList-lineEnd{ float:left; width: 8px; height: 20px; background:url(/public/images/tree-lineEnd.png) no-repeat; margin-left: 7px;}
+.f-treeList-top{ width: 100%; height: 20px;position: relative;}
+.f-treeList-old{ float: left; padding-top: 5px; width:10px; height:10px; cursor: pointer; margin-right: 5px;}
+.f-treeList-title{ float: left; overflow: hidden;}
+.f-treeList-radio{float: left; padding-top:3px; margin-right: 5px; cursor: pointer;}
+.f-treeList-radio input{ display: none;}
+.f-treeList-titleImg{ float: left; padding-top:2px;}
+.f-treeList-titleP{display: block;float: left;/* margin-left: -15px; */line-height: 20px;cursor:pointer;}
+.name:hover{color:red;}
+.f-iconBi{ display: block; width: 16px; height: 16px; background: url(/public/images/smiley_sleep.png) center no-repeat;}
+.f-iconKai{ display: block; width: 16px; height: 16px; background: url(/public/images/smiley_evil.png) center no-repeat;}
+.f-iconEnd{ display: block; width: 16px; height: 16px; background: url(/public/images/ren.png) no-repeat center/100% 100% ;}
+.f-iconJia{ display: block; width: 11px; height: 11px; background: url(/public/images/tree-jia.png) no-repeat; background-color:#fff ;}
+.f-iconJian{ display: block; width: 11px; height: 11px; background: url(/public/images/tree-jian.png) no-repeat; background-color:#fff ;}
+.f-iconRadio{ display: block; width: 14px; height: 14px; background: url(/public/images/tree-radio.png) no-repeat; background-color:#fff ;}
+.f-iconRadioTrue{ display: block; width: 14px; height: 14px; background: url(/public/images/tree-radioHover.png) no-repeat; background-color:#fff ;}
